@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手芸・クラフト材料費計算ツール【無料】作品コスト・材料リスト管理</title>
+  <meta name="description" content="手芸・クラフトの材料費計算ツール。編み物・縫製・レジン・刺繍などの材料費を計算。作品1つあたりのコスト、販売価格の目安も計算できます。無料で使えます。">
+  <link rel="canonical" href="https://appadaycreator.github.io/craft-material-calculator/">
+  <meta property="og:title" content="手芸・クラフト材料費計算ツール【無料】作品コスト・材料リスト管理">
+  <meta property="og:description" content="編み物・縫製・レジン・刺繍などの材料費を計算。作品1つあたりのコスト、販売価格の目安も計算。">
+  <meta property="og:url" content="https://appadaycreator.github.io/craft-material-calculator/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧵</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TXQGZRF9');</script>
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","s3t9vl8h3v");</script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8427583028015858" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', 'Inter', sans-serif; background: linear-gradient(135deg, #1a001a 0%, #2d0a2e 50%, #1a001a 100%); min-height: 100vh; color: #f3e5f5; }
+    header { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); padding: 1rem 1.5rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    header h1 { font-size: 1.6rem; color: #fff; font-weight: 700; }
+    header p { font-size: 0.9rem; color: #ce93d8; margin-top: 0.3rem; }
+    main { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
+    .card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .card h2 { font-size: 1.15rem; color: #fff; margin-bottom: 1rem; font-weight: 700; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.85rem; color: #ce93d8; font-weight: 600; }
+    .form-group input, .form-group select { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 0.65rem 0.9rem; color: #fff; font-size: 1rem; font-family: inherit; }
+    .form-group input:focus { outline: none; border-color: #ba68c8; }
+    .form-group select option { background: #1a001a; }
+    .btn { display: block; width: 100%; padding: 0.85rem; background: linear-gradient(90deg, #6a1b9a, #ab47bc); color: #fff; font-size: 1rem; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; margin-top: 1rem; font-family: inherit; transition: opacity 0.2s; }
+    .btn:hover { opacity: 0.9; }
+    .btn-add { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #ce93d8; font-size: 0.85rem; padding: 0.4rem 0.8rem; border-radius: 8px; cursor: pointer; font-family: inherit; margin-top: 0.5rem; transition: all 0.2s; }
+    .btn-add:hover { background: rgba(186,104,200,0.2); border-color: #ce93d8; color: #fff; }
+    .material-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+    @media (max-width: 600px) { .material-row { grid-template-columns: 1fr 1fr; } }
+    .material-row input, .material-row select { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 0.5rem 0.6rem; color: #fff; font-size: 0.88rem; font-family: inherit; }
+    .remove-btn { background: none; border: none; color: #ef9a9a; cursor: pointer; font-size: 1.1rem; padding: 0.3rem; }
+    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .result-item { background: rgba(106,27,154,0.15); border: 1px solid rgba(106,27,154,0.3); border-radius: 12px; padding: 1rem; text-align: center; }
+    .result-item .label { font-size: 0.8rem; color: #ce93d8; }
+    .result-item .value { font-size: 1.4rem; font-weight: 700; color: #e040fb; margin-top: 0.3rem; }
+    .result-item .unit { font-size: 0.8rem; color: #ce93d8; }
+    .material-breakdown { margin-top: 1rem; }
+    .mat-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; }
+    .mat-row .mn { color: #ccc; }
+    .mat-row .ma { color: #e040fb; font-weight: 600; }
+    .mat-row.total-row { border-top: 2px solid rgba(224,64,251,0.4); border-bottom: none; margin-top: 0.3rem; padding-top: 0.7rem; }
+    .mat-row.total-row .mn { color: #fff; font-weight: 700; }
+    .mat-row.total-row .ma { color: #ffd740; font-size: 1.1rem; }
+    .preset-btns { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .preset-btn { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); color: #ccc; font-size: 0.8rem; padding: 0.3rem 0.7rem; border-radius: 20px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .preset-btn:hover { background: rgba(186,104,200,0.2); border-color: #ce93d8; color: #fff; }
+    .tips-list { list-style: none; }
+    .tips-list li { padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 0.9rem; color: #ccc; }
+    .tips-list li::before { content: "🧵 "; }
+    .price-suggestion { background: rgba(255,215,64,0.1); border: 1px solid rgba(255,215,64,0.3); border-radius: 12px; padding: 1rem; margin-top: 1rem; }
+    .price-suggestion h3 { font-size: 0.95rem; color: #ffd740; margin-bottom: 0.5rem; }
+    .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.8rem; margin-top: 0.5rem; }
+    .price-box { text-align: center; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 0.6rem; }
+    .price-box .pv { font-size: 1.1rem; font-weight: 700; color: #ffd740; }
+    .price-box .pl { font-size: 0.75rem; color: #ce93d8; }
+    .hidden { display: none; }
+    footer { background: rgba(0,0,0,0.3); text-align: center; padding: 2rem 1rem; margin-top: 2rem; color: #888; font-size: 0.85rem; }
+    footer a { color: #ce93d8; text-decoration: none; }
+    footer .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+    .mat-header { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap: 0.5rem; margin-bottom: 0.3rem; font-size: 0.8rem; color: #ce93d8; font-weight: 600; }
+    @media (max-width: 600px) { .mat-header { display: none; } }
+  </style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXQGZRF9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <h1>🧵 手芸・クラフト材料費計算</h1>
+  <p>作品1つあたりのコスト・販売価格目安を計算</p>
+</header>
+
+<main>
+  <!-- プリセット -->
+  <section class="card">
+    <h2>📦 よく使う材料セットから始める</h2>
+    <div class="preset-btns">
+      <button class="preset-btn" onclick="loadPreset('knit')">🧶 編み物（マフラー）</button>
+      <button class="preset-btn" onclick="loadPreset('sewing')">✂️ 縫製（トートバッグ）</button>
+      <button class="preset-btn" onclick="loadPreset('resin')">💎 レジンアクセサリー</button>
+      <button class="preset-btn" onclick="loadPreset('embroidery')">🌸 刺繍ハンカチ</button>
+      <button class="preset-btn" onclick="loadPreset('candle')">🕯️ キャンドル</button>
+    </div>
+  </section>
+
+  <!-- 材料費計算 -->
+  <section class="card">
+    <h2>🔢 材料費を計算する</h2>
+    <div class="mat-header">
+      <div>材料名</div><div>購入単価（円）</div><div>購入量</div><div>使用量</div><div></div>
+    </div>
+    <div id="materialRows"></div>
+    <button class="btn-add" onclick="addRow()">＋ 材料を追加</button>
+    <div class="form-grid" style="margin-top:1rem;">
+      <div class="form-group">
+        <label>1回で何個作る（生産数）</label>
+        <input type="number" id="productionQty" value="1" min="1" step="1">
+      </div>
+      <div class="form-group">
+        <label>制作時間（時間）</label>
+        <input type="number" id="workHours" value="3" min="0.5" step="0.5">
+      </div>
+      <div class="form-group">
+        <label>時給換算（円/時間）</label>
+        <input type="number" id="hourlyRate" value="1000" min="0" step="100">
+      </div>
+    </div>
+    <button class="btn" onclick="calculate()">材料費・コストを計算する</button>
+
+    <div id="calcResult" class="hidden">
+      <div class="result-grid">
+        <div class="result-item">
+          <div class="label">材料費合計</div>
+          <div class="value" id="totalMaterial">-</div>
+          <div class="unit">円</div>
+        </div>
+        <div class="result-item">
+          <div class="label">1個あたり材料費</div>
+          <div class="value" id="perItemMaterial">-</div>
+          <div class="unit">円/個</div>
+        </div>
+        <div class="result-item">
+          <div class="label">制作費（時給込み）</div>
+          <div class="value" id="totalWithLabor">-</div>
+          <div class="unit">円/個</div>
+        </div>
+      </div>
+      <div class="material-breakdown" id="materialBreakdown"></div>
+      <div class="price-suggestion" id="priceSuggestion">
+        <h3>💰 販売価格の目安</h3>
+        <div class="price-grid" id="priceGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- クラフト別材料の目安 -->
+  <section class="card">
+    <h2>📊 ジャンル別 材料費の相場目安</h2>
+    <div id="craftCosts"></div>
+  </section>
+
+  <!-- Tips -->
+  <section class="card">
+    <h2>💡 材料費を節約するコツ</h2>
+    <ul class="tips-list">
+      <li>ネット通販（Creema仕入れ・Amazon・楽天）で複数まとめ買いすると単価が下がる</li>
+      <li>手芸店のセール・会員割引を活用する（10〜20%OFF）</li>
+      <li>端切れ・余り毛糸も活用できるパターンを選ぶとコスト削減になる</li>
+      <li>材料の在庫管理をきちんとすることで無駄な二重購入を防げる</li>
+      <li>フリマアプリ（メルカリ）で質の良い中古材料を入手する</li>
+      <li>手芸サークルで材料をシェアするのも節約の一つ</li>
+      <li>販売目的なら材料費の2〜3倍を販売価格の目安にしよう</li>
+      <li>梱包資材（袋・リボン・タグ）も材料費に含めることを忘れずに</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="links">
+    <a href="https://appadaycreator.github.io/hobby-cost-simulator/">趣味費用シミュレーター</a>
+    <a href="https://appadaycreator.github.io/hobby-matcher/">趣味マッチャー</a>
+    <a href="https://appadaycreator.github.io/gift-idea-finder/">ギフトアイデア</a>
+    <a href="https://appadaycreator.github.io/side-job-aptitude-test/">副業適性テスト</a>
+    <a href="https://appadaycreator.github.io/startup-cost-advisor/">起業費用アドバイザー</a>
+  </div>
+  <p>© 2025 AppADayCreator</p>
+</footer>
+
+<script>
+  const PRESETS = {
+    knit: [
+      { name: '毛糸（並太）', price: 800, buyQty: 100, buyUnit: 'g', useQty: 80, useUnit: 'g' },
+      { name: '棒針（2本セット）', price: 400, buyQty: 1, buyUnit: 'セット', useQty: 0.1, useUnit: 'セット' },
+    ],
+    sewing: [
+      { name: '綿布（110cm幅）', price: 700, buyQty: 100, buyUnit: 'cm', useQty: 60, useUnit: 'cm' },
+      { name: '糸', price: 200, buyQty: 1, buyUnit: '巻', useQty: 0.3, useUnit: '巻' },
+      { name: '接着芯', price: 300, buyQty: 100, buyUnit: 'cm', useQty: 40, useUnit: 'cm' },
+      { name: '持ち手テープ', price: 250, buyQty: 200, buyUnit: 'cm', useQty: 80, useUnit: 'cm' },
+    ],
+    resin: [
+      { name: 'UVレジン液', price: 1200, buyQty: 30, buyUnit: 'ml', useQty: 5, useUnit: 'ml' },
+      { name: 'モールド', price: 500, buyQty: 1, buyUnit: '個', useQty: 0.05, useUnit: '個' },
+      { name: 'カラーフィルム・押し花', price: 300, buyQty: 1, buyUnit: 'セット', useQty: 0.2, useUnit: 'セット' },
+      { name: 'UVライト', price: 2000, buyQty: 1, buyUnit: '個', useQty: 0.01, useUnit: '個' },
+    ],
+    embroidery: [
+      { name: '刺繍糸（25番手）', price: 100, buyQty: 8, buyUnit: 'm', useQty: 3, useUnit: 'm' },
+      { name: '刺繍用布', price: 300, buyQty: 1, buyUnit: '枚', useQty: 1, useUnit: '枚' },
+      { name: '刺繍針', price: 300, buyQty: 1, buyUnit: 'セット', useQty: 0.05, useUnit: 'セット' },
+      { name: '刺繍枠', price: 500, buyQty: 1, buyUnit: '個', useQty: 0.02, useUnit: '個' },
+    ],
+    candle: [
+      { name: 'キャンドルワックス', price: 1500, buyQty: 500, buyUnit: 'g', useQty: 100, useUnit: 'g' },
+      { name: '芯', price: 300, buyQty: 10, buyUnit: '本', useQty: 1, useUnit: '本' },
+      { name: '香料（フレグランスオイル）', price: 800, buyQty: 30, buyUnit: 'ml', useQty: 5, useUnit: 'ml' },
+      { name: '容器（ガラスカップ）', price: 200, buyQty: 1, buyUnit: '個', useQty: 1, useUnit: '個' },
+    ],
+  };
+
+  let rows = [];
+
+  function loadPreset(key) {
+    rows = PRESETS[key].map((r, i) => ({ ...r, id: Date.now() + i }));
+    renderRows();
+  }
+
+  function addRow() {
+    rows.push({ id: Date.now(), name: '', price: 0, buyQty: 1, buyUnit: '個', useQty: 1, useUnit: '個' });
+    renderRows();
+  }
+
+  function removeRow(id) {
+    rows = rows.filter(r => r.id !== id);
+    renderRows();
+  }
+
+  function renderRows() {
+    document.getElementById('materialRows').innerHTML = rows.map(r => `
+      <div class="material-row" id="row-${r.id}">
+        <input type="text" placeholder="材料名" value="${r.name}" oninput="updateRow(${r.id},'name',this.value)">
+        <input type="number" placeholder="購入単価(円)" value="${r.price}" min="0" oninput="updateRow(${r.id},'price',+this.value)">
+        <input type="number" placeholder="購入量" value="${r.buyQty}" min="0.01" step="0.01" oninput="updateRow(${r.id},'buyQty',+this.value)">
+        <input type="number" placeholder="使用量" value="${r.useQty}" min="0" step="0.01" oninput="updateRow(${r.id},'useQty',+this.value)">
+        <button class="remove-btn" onclick="removeRow(${r.id})">✕</button>
+      </div>`).join('');
+    if (!rows.length) {
+      document.getElementById('materialRows').innerHTML = '<p style="color:#888;font-size:0.85rem;padding:0.5rem;">上のプリセットから選ぶか、「＋ 材料を追加」でスタート</p>';
+    }
+  }
+
+  function updateRow(id, field, value) {
+    rows = rows.map(r => r.id === id ? { ...r, [field]: value } : r);
+  }
+
+  function calculate() {
+    const qty = parseInt(document.getElementById('productionQty').value) || 1;
+    const hours = parseFloat(document.getElementById('workHours').value) || 0;
+    const hourly = parseFloat(document.getElementById('hourlyRate').value) || 0;
+    const details = rows.map(r => {
+      const costPerUnit = r.price / (r.buyQty || 1);
+      const itemCost = costPerUnit * r.useQty;
+      return { name: r.name || '（未入力）', cost: itemCost };
+    });
+    const totalMat = details.reduce((s, d) => s + d.cost, 0);
+    const perItem = totalMat / qty;
+    const laborCost = (hours * hourly) / qty;
+    const totalWithLabor = perItem + laborCost;
+    document.getElementById('totalMaterial').textContent = Math.round(totalMat).toLocaleString();
+    document.getElementById('perItemMaterial').textContent = Math.round(perItem).toLocaleString();
+    document.getElementById('totalWithLabor').textContent = Math.round(totalWithLabor).toLocaleString();
+    let breakHtml = details.map(d => `<div class="mat-row"><span class="mn">${d.name}</span><span class="ma">¥${Math.round(d.cost).toLocaleString()}</span></div>`).join('');
+    if (hours > 0) breakHtml += `<div class="mat-row"><span class="mn">制作費（${hours}h × ¥${hourly}/h ÷ ${qty}個）</span><span class="ma">¥${Math.round(laborCost).toLocaleString()}</span></div>`;
+    breakHtml += `<div class="mat-row total-row"><span class="mn">合計コスト（1個あたり）</span><span class="ma">¥${Math.round(totalWithLabor).toLocaleString()}</span></div>`;
+    document.getElementById('materialBreakdown').innerHTML = breakHtml;
+    const prices = [
+      { label: '材料費×1.5（最低価格）', val: totalWithLabor * 1.5 },
+      { label: '材料費×2（適正価格）', val: totalWithLabor * 2 },
+      { label: '材料費×3（プロ価格）', val: totalWithLabor * 3 },
+    ];
+    document.getElementById('priceGrid').innerHTML = prices.map(p =>
+      `<div class="price-box"><div class="pv">¥${Math.round(p.val).toLocaleString()}</div><div class="pl">${p.label}</div></div>`).join('');
+    document.getElementById('calcResult').classList.remove('hidden');
+  }
+
+  function renderCraftCosts() {
+    const crafts = [
+      { name: '🧶 マフラー（編み物）', mat: '800〜2,000', selling: '3,000〜8,000' },
+      { name: '👜 トートバッグ（縫製）', mat: '500〜1,500', selling: '2,000〜5,000' },
+      { name: '💎 レジンアクセサリー', mat: '100〜500', selling: '500〜3,000' },
+      { name: '🌸 刺繍ハンカチ', mat: '300〜800', selling: '1,500〜5,000' },
+      { name: '🕯️ キャンドル', mat: '200〜600', selling: '1,000〜3,000' },
+      { name: '🧸 ぬいぐるみ', mat: '500〜2,000', selling: '3,000〜15,000' },
+      { name: '💍 ビーズアクセサリー', mat: '100〜400', selling: '800〜3,000' },
+      { name: '🎁 羊毛フェルト小物', mat: '200〜700', selling: '1,000〜5,000' },
+    ];
+    document.getElementById('craftCosts').innerHTML = crafts.map(c => `
+      <div style="display:flex;justify-content:space-between;padding:0.6rem 0;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.9rem;">
+        <span style="color:#ccc;">${c.name}</span>
+        <span style="color:#e040fb;">材料費: ¥${c.mat}</span>
+        <span style="color:#ffd740;">販売目安: ¥${c.selling}</span>
+      </div>`).join('');
+  }
+
+  loadPreset('knit');
+  renderCraftCosts();
+</script>
+</body>
+</html>
