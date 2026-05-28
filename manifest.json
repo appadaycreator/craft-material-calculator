@@ -3,7 +3,7 @@
   "short_name": "クラフト計算",
   "start_url": "/craft-material-calculator/",
   "display": "standalone",
-  "background_color": "#1a001a",
+  "background_color": "#ffffff",
   "theme_color": "#ab47bc",
   "scope": "/craft-material-calculator/"
 }
